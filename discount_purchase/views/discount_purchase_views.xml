@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="discount_purchase_line_view" model="ir.ui.view">
+        <field name="name">discount.purchase.line.view</field>
+        <field name="model">discount.purchase</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="order_line_id" invisible="1"/>
+                <field name="type"/>
+                <field name="amount"/>
+                <field name="disc_value" invisible="1"/>
+                <field name="subtotal" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

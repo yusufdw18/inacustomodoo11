@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+purchase_user_discount_purchase,purchase_user.discount.purchase,discount_purchase.model_discount_purchase,purchase.group_purchase_user,1,1,1,1

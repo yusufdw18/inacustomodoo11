@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_view_form" model="ir.ui.view">
+        <field name="name">purchase.order.view.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//tree/field[@name='taxes_id']" position="after">
+            	<field name="discount" />
+            	<button name="action_list_discount" string="List of Discount" type="object" options='{"warn": true}' icon="fa-pencil" attrs="{'invisible': [('state', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="discount_purchase_line_view_inherit" model="ir.ui.view">
+        <field name="name">discount.purchase.line.view.inherit</field>
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <form string="Move Detail">
+                <group>
+                    <field name="price_unit" readonly="1"/>
+                    <field name="product_qty" readonly="1" invisible="1"/>
+                    <field name="state" readonly="1" invisible="1"/>
+                </group>
+                <field name="purch_discount_ids" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])]}" context="{'tree_view_ref': 'discount_purchase.discount_purchase_line_view'}"/>
+                <group>
+                	<field name="net_price" readonly="1"/>
+                </group>
+                <footer class="oe_edit_only">
+                    <button name="button_discount" string="Confirm" class="oe_highlight" type="object" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+                    <button name="button_apply_all" string="Apply All" class="oe_highlight" type="object" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+                    <button string="Discard" special="cancel" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
