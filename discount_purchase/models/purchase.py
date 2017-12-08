@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import api, fields, models, _
 from odoo.addons import decimal_precision as dp
-from odoo.exceptions import Warning
 
 
 class PurchaseOrderLine(models.Model):
@@ -128,10 +127,3 @@ class PurchaseOrderLine(models.Model):
             if 'price_unit' in vals and line.purch_discount_ids:
                 line.button_discount()
         return res
-
-#     @api.multi
-#     def copy(self, default=None):
-#         new_poline = super(PurchaseOrderLine, self).copy(default=default)
-#         for line in new_poline:
-#             line.discount = 0
-#         return new_poline

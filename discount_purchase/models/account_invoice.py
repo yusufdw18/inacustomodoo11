@@ -149,13 +149,6 @@ class AccountInvoiceLine(models.Model):
     """class Account Invoice Line"""
     _inherit = "account.invoice.line"
 
-    @api.depends('price_unit', 'discount')
-    def _compute_net_price(self):
-        for line in self:
-            line.update({
-                'net_price': line.price_unit - line.discount,
-            })
-
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
                  'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id',
                  'invoice_id.company_id', 'invoice_id.date_invoice')
@@ -191,7 +184,3 @@ class AccountInvoiceLine(models.Model):
             price_subtotal_signed = self.invoice_id.currency_id.with_context(date=self.invoice_id.date_invoice).compute(price_subtotal_signed, self.invoice_id.company_id.currency_id)
         sign = self.invoice_id.type in ['in_refund', 'out_refund'] and -1 or 1
         self.price_subtotal_signed = price_subtotal_signed * sign
-
-    net_price = fields.Float(string='Net Unit Price', compute='_compute_net_price',
-                             store=True, readonly=True,
-                             digits=dp.get_precision('Product Price'))

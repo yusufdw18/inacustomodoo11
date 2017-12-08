@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import api, fields, models, _
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import Warning
 
 
